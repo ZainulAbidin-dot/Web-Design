@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+
+import "./App.css";
+import Footer from "./components/Footer";
+import NavBar from "./components/NavBar";
+import Homepage from "../src/components/Homepage";
+import AboutUs from "./components/AboutUs";
+import ViewBoard from "./components/ViewBoard";
+import AddBoard from "./components/AddBoard";
+import Board from "./components/Board";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
+import AddTask from "./components/AddTask";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar />
+      <div className="bg-indigo-600 w-full ">
+        <Routes>
+          <Route path="/">
+            <Route index element={<Homepage />} />
+            <Route path="addboard" element={<AddBoard />} />
+            <Route path="viewboard" element={<ViewBoard />} />
+            <Route path="createdboard" element={<Board />} />
+            <Route path="signin" element={<SignIn />} />
+            <Route path="signup" element={<SignUp />} />
+            <Route path="addtask" element={<AddTask />} />
+            <Route path="about" element={<AboutUs />} />
+          </Route>
+        </Routes>
+      </div>
+      <Footer />
     </div>
   );
 }
