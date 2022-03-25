@@ -1,7 +1,28 @@
 import React from "react";
+import { useRef } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const SignIn = () => {
+  const emailRef = useRef();
+  const passRef = useRef();
+
+  const buttonClickHandler = async () => {
+    const emailval = emailRef.current.value;
+    const passVal = passRef.current.value;
+    if (emailval.includes("@") && passVal.length() <= 5) {
+      const res = await fetch("127.0.0.1:8000/api/token", {
+        body: JSON.stringify({
+          username: emailval,
+          password: passVal,
+        }),
+        method: "POST",
+      });
+      const token = await res.json();
+      localStorage.setItem("token", token["access"]);
+    }
+  };
+
   return (
     <>
       <div className="h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -26,6 +47,7 @@ const SignIn = () => {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
+                  ref={emailRef}
                 />
               </div>
               <div>
@@ -40,6 +62,7 @@ const SignIn = () => {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
+                  ref={passRef}
                 />
               </div>
             </div>
@@ -69,11 +92,11 @@ const SignIn = () => {
             </div>
 
             <div>
-              <Link
-                to="/"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                onClick={buttonClickHandler}>
                 Sign in
-              </Link>
+              </button>
             </div>
             <div>
               <Link

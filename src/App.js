@@ -11,6 +11,7 @@ import Board from "./components/Board";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import AddTask from "./components/AddTask";
+import View from "./components/View";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route index element={<Homepage />} />
             <Route path="addboard" element={<AddBoard />} />
             <Route path="viewboard" element={<ViewBoard />} />
+            <Route path="view" element={<View />} />
             <Route path="createdboard" element={<Board />} />
             <Route path="signin" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
